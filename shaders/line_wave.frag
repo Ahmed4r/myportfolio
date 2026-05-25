@@ -1,7 +1,3 @@
-#version 460 core
-
-// Removed #include <flutter/runtime_effect.glsl> for cross-platform compatibility
-// Flutter web requires variables to be declared explicitly
 
 uniform vec3 uResolution;
 uniform float uTime;

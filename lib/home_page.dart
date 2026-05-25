@@ -219,84 +219,100 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHeroSection(bool isMobile) {
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 1180),
-      padding: EdgeInsets.fromLTRB(
-        isMobile ? 20 : 32,
-        isMobile ? 64 : 116,
-        isMobile ? 20 : 32,
-        isMobile ? 44 : 90,
+    return Center(
+      // Center the entire container inside wide web viewports
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 1180),
+        padding: EdgeInsets.fromLTRB(
+          isMobile ? 20 : 32,
+          isMobile ? 64 : 116,
+          isMobile ? 20 : 32,
+          isMobile ? 44 : 90,
+        ),
+        child: isMobile
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _buildHeroContent(isMobile),
+                  const SizedBox(height: 42),
+                  _buildProfilePanel(isMobile),
+                ],
+              )
+            : Row(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start, // Align to top for better spacing
+                children: [
+                  Expanded(flex: 6, child: _buildHeroContent(isMobile)),
+                  const SizedBox(
+                    width: 48,
+                  ), // Use a standard fixed spacer instead of conditional logic
+                  Expanded(flex: 4, child: _buildProfilePanel(isMobile)),
+                ],
+              ),
       ),
-      child: Flex(
-        direction: isMobile ? Axis.vertical : Axis.horizontal,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: isMobile ? 0 : 6,
-            child: Column(
-              crossAxisAlignment: isMobile
-                  ? CrossAxisAlignment.center
-                  : CrossAxisAlignment.start,
-              children: [
-                _buildPill('Available for Flutter roles'),
-                const SizedBox(height: 28),
-                ShaderMask(
-                      shaderCallback: (bounds) => const LinearGradient(
-                        colors: [Colors.white, Color(0xff93C5FD)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ).createShader(bounds),
-                      child: Text(
-                        'Flutter developer building polished mobile experiences.',
-                        textAlign: isMobile ? TextAlign.center : TextAlign.left,
-                        style: TextStyle(
-                          fontSize: isMobile ? 42 : 76,
-                          fontWeight: FontWeight.w900,
-                          height: 1.05,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                    .animate()
-                    .fadeIn(delay: 200.ms, duration: 800.ms)
-                    .slideY(begin: 0.08, end: 0),
-                const SizedBox(height: 28),
-                Text(
-                  'Computer Science student at Pharos University Alexandria with 1+ year of Flutter experience across Firebase, REST APIs, Bloc, Provider, and responsive cross-platform apps.',
-                  textAlign: isMobile ? TextAlign.center : TextAlign.left,
-                  style: TextStyle(
-                    fontSize: isMobile ? 16 : 19,
-                    color: Colors.white.withValues(alpha: 0.68),
-                    height: 1.55,
-                  ),
-                ).animate().fadeIn(delay: 360.ms, duration: 700.ms),
-                const SizedBox(height: 36),
-                Wrap(
-                  spacing: 14,
-                  runSpacing: 14,
-                  alignment: isMobile
-                      ? WrapAlignment.center
-                      : WrapAlignment.start,
-                  children: [
-                    _buildPrimaryButton(
-                      'View Projects',
-                      icon: Icons.work_outline,
-                      onPressed: () => _scrollTo(_projectsKey),
-                    ),
-                    _buildSecondaryButton(
-                      'Contact Me',
-                      icon: Icons.mail_outline,
-                      onPressed: () => _scrollTo(_contactKey),
-                    ),
-                  ],
-                ).animate().fadeIn(delay: 520.ms, duration: 700.ms),
-              ],
-            ),
+    );
+  }
+
+  // Helper method to keep your layout code clean and maintainable
+  Widget _buildHeroContent(bool isMobile) {
+    return Column(
+      crossAxisAlignment: isMobile
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
+      children: [
+        _buildPill('Available for Flutter roles'),
+        const SizedBox(height: 28),
+        ShaderMask(
+              shaderCallback: (bounds) => const LinearGradient(
+                colors: [Colors.white, Color(0xff93C5FD)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ).createShader(bounds),
+              child: Text(
+                'Flutter developer building polished mobile experiences.',
+                textAlign: isMobile ? TextAlign.center : TextAlign.left,
+                style: TextStyle(
+                  fontSize: isMobile
+                      ? 42
+                      : 64, // Dropped slightly from 76 to avoid severe wrapping issues
+                  fontWeight: FontWeight.w900,
+                  height: 1.1,
+                  color: Colors.white,
+                ),
+              ),
+            )
+            .animate()
+            .fadeIn(delay: 200.ms, duration: 800.ms)
+            .slideY(begin: 0.08, end: 0),
+        const SizedBox(height: 28),
+        Text(
+          'Computer Science student at Pharos University Alexandria with 1+ year of Flutter experience across Firebase, REST APIs, Bloc, Provider, and responsive cross-platform apps.',
+          textAlign: isMobile ? TextAlign.center : TextAlign.left,
+          style: TextStyle(
+            fontSize: isMobile ? 16 : 18,
+            color: Colors.white.withValues(alpha: 0.68),
+            height: 1.55,
           ),
-          SizedBox(width: isMobile ? 0 : 42, height: isMobile ? 42 : 0),
-          Expanded(flex: isMobile ? 0 : 4, child: _buildProfilePanel(isMobile)),
-        ],
-      ),
+        ).animate().fadeIn(delay: 360.ms, duration: 700.ms),
+        const SizedBox(height: 36),
+        Wrap(
+          spacing: 14,
+          runSpacing: 14,
+          alignment: isMobile ? WrapAlignment.center : WrapAlignment.start,
+          children: [
+            _buildPrimaryButton(
+              'View Projects',
+              icon: Icons.work_outline,
+              onPressed: () => _scrollTo(_projectsKey),
+            ),
+            _buildSecondaryButton(
+              'Contact Me',
+              icon: Icons.mail_outline,
+              onPressed: () => _scrollTo(_contactKey),
+            ),
+          ],
+        ).animate().fadeIn(delay: 520.ms, duration: 700.ms),
+      ],
     );
   }
 
@@ -468,14 +484,26 @@ class _HomePageState extends State<HomePage> {
         horizontal: isMobile ? 20 : 32,
         vertical: isMobile ? 22 : 36,
       ),
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: isMobile ? 2 : 4,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
-        childAspectRatio: isMobile ? 1.55 : 1.75,
-        children: [for (final stat in stats) _statItem(stat.$1, stat.$2)],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final double width = constraints.maxWidth;
+          final int crossAxisCount = isMobile ? 2 : 4;
+          final double itemWidth =
+              (width - ((crossAxisCount - 1) * 12)) / crossAxisCount;
+          // Forces a strict fixed height for stat cards regardless of screen width
+          const double itemHeight = 100.0;
+          final double calculatedRatio = itemWidth / itemHeight;
+
+          return GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: crossAxisCount,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            childAspectRatio: calculatedRatio,
+            children: [for (final stat in stats) _statItem(stat.$1, stat.$2)],
+          );
+        },
       ),
     ).animate().fadeIn(delay: 700.ms);
   }
@@ -578,16 +606,32 @@ class _HomePageState extends State<HomePage> {
       subtitle:
           'Mobile apps that pair practical product features with clean Flutter implementation.',
       isMobile: isMobile,
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: MediaQuery.of(context).size.width > 980
-            ? 3
-            : (MediaQuery.of(context).size.width > 650 ? 2 : 1),
-        mainAxisSpacing: 18,
-        crossAxisSpacing: 18,
-        childAspectRatio: isMobile ? 1.08 : 1.02,
-        children: [for (final project in projects) _projectCard(project)],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final double width = constraints.maxWidth;
+          int crossAxisCount = 1;
+          if (width > 980) {
+            crossAxisCount = 3;
+          } else if (width > 650) {
+            crossAxisCount = 2;
+          }
+
+          final double itemWidth =
+              (width - ((crossAxisCount - 1) * 18)) / crossAxisCount;
+          // Dynamically scales layout height requirements based on mobile vs desktop layouts
+          final double itemHeight = isMobile ? 260.0 : 290.0;
+          final double calculatedRatio = itemWidth / itemHeight;
+
+          return GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: crossAxisCount,
+            mainAxisSpacing: 18,
+            crossAxisSpacing: 18,
+            childAspectRatio: calculatedRatio,
+            children: [for (final project in projects) _projectCard(project)],
+          );
+        },
       ),
     );
   }
@@ -683,21 +727,34 @@ class _HomePageState extends State<HomePage> {
       isMobile: isMobile,
       verticalPadding: isMobile ? 42 : 56,
       contentGap: 22,
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: isMobile
-            ? 1
-            : (MediaQuery.of(context).size.width > 980 ? 4 : 2),
-        mainAxisSpacing: 14,
-        crossAxisSpacing: 14,
-        childAspectRatio: isMobile
-            ? 2.45
-            : (MediaQuery.of(context).size.width > 980 ? 1.35 : 1.75),
-        children: [
-          for (final entry in skills.entries)
-            _skillGroup(entry.key, entry.value),
-        ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final double width = constraints.maxWidth;
+          int crossAxisCount = 1;
+          if (width > 980) {
+            crossAxisCount = 4;
+          } else if (width > 650) {
+            crossAxisCount = 2;
+          }
+
+          final double itemWidth =
+              (width - ((crossAxisCount - 1) * 14)) / crossAxisCount;
+          const double itemHeight = 135.0;
+          final double calculatedRatio = itemWidth / itemHeight;
+
+          return GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: crossAxisCount,
+            mainAxisSpacing: 14,
+            crossAxisSpacing: 14,
+            childAspectRatio: calculatedRatio,
+            children: [
+              for (final entry in skills.entries)
+                _skillGroup(entry.key, entry.value),
+            ],
+          );
+        },
       ),
     );
   }

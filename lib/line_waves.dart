@@ -72,7 +72,9 @@ class _LineWavesState extends State<LineWaves>
   }
 
   Future<void> _loadShader() async {
-    final program = await ui.FragmentProgram.fromAsset('shaders/aurora.frag');
+    final program = await ui.FragmentProgram.fromAsset(
+      'shaders/line_wave.frag',
+    );
     setState(() {
       _shader = program.fragmentShader();
     });
@@ -197,17 +199,17 @@ class LineWavesPainter extends CustomPainter {
     shader.setFloat(11, brightness);
 
     // 3. Normalized Vec3 Color Components Mapping
-    shader.setFloat(12, color1.red / 255.0);
-    shader.setFloat(13, color1.green / 255.0);
-    shader.setFloat(14, color1.blue / 255.0);
+    shader.setFloat(12, color1.r);
+    shader.setFloat(13, color1.g);
+    shader.setFloat(14, color1.b);
 
-    shader.setFloat(15, color2.red / 255.0);
-    shader.setFloat(16, color2.green / 255.0);
-    shader.setFloat(17, color2.blue / 255.0);
+    shader.setFloat(15, color2.r);
+    shader.setFloat(16, color2.g);
+    shader.setFloat(17, color2.b);
 
-    shader.setFloat(18, color3.red / 255.0);
-    shader.setFloat(19, color3.green / 255.0);
-    shader.setFloat(20, color3.blue / 255.0);
+    shader.setFloat(18, color3.r);
+    shader.setFloat(19, color3.g);
+    shader.setFloat(20, color3.b);
 
     // 4. Mouse Position vector properties
     shader.setFloat(21, mouse.dx);
