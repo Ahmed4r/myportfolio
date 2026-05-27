@@ -63,6 +63,7 @@ flutter:
   shaders:
     - shaders/aurora.frag
     - shaders/line_wave.frag
+    - shaders/dark_veil.frag
 
   # To add assets to your application, add an assets section, like this:
   assets:

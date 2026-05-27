@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:myportfolio/line_waves.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:myportfolio/dark_veil.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -51,10 +51,10 @@ class _HomePageState extends State<HomePage> {
       key: _scaffoldKey,
       backgroundColor: const Color(0xff030712),
       drawer: isMobile ? _buildDrawer() : null,
-      body: LineWaves(
-        color1: const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.5),
-        color2: const Color.fromARGB(255, 11, 34, 233).withValues(alpha: 0.14),
-        color3: const Color.fromARGB(255, 0, 0, 0).withValues(alpha: 0.1),
+      body: DarkVeil(
+        // color1: const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.5),
+        // color2: const Color.fromARGB(255, 11, 34, 233).withValues(alpha: 0.14),
+        // color3: const Color.fromARGB(255, 0, 0, 0).withValues(alpha: 0.1),
         child: SelectionArea(
           child: SingleChildScrollView(
             child: Column(
@@ -146,11 +146,16 @@ class _HomePageState extends State<HomePage> {
         ),
         decoration: BoxDecoration(
           color: const Color(0xff08111F),
-          border: Border.all(color: const Color(0xff1D4ED8)),
+          border: Border.all(color: Colors.grey.shade800),
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xff0B22E9).withValues(alpha: 0.18),
+              color: const Color.fromARGB(
+                255,
+                72,
+                72,
+                78,
+              ).withValues(alpha: 0.18),
               blurRadius: 30,
               offset: const Offset(0, 14),
             ),
@@ -260,8 +265,8 @@ class _HomePageState extends State<HomePage> {
           ? CrossAxisAlignment.center
           : CrossAxisAlignment.start,
       children: [
-        _buildPill('Available for Flutter roles'),
-        const SizedBox(height: 28),
+        // _buildPill('Available for Flutter roles'),
+        // const SizedBox(height: 28),
         ShaderMask(
               shaderCallback: (bounds) => const LinearGradient(
                 colors: [Colors.white, Color(0xff93C5FD)],
@@ -344,7 +349,7 @@ class _HomePageState extends State<HomePage> {
           decoration: BoxDecoration(
             color: const Color(0xff08111F),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color(0xff1D4ED8)),
+            border: Border.all(color: const Color.fromARGB(255, 32, 46, 75)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -362,7 +367,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text(
                         'AH',
                         style: TextStyle(
-                          color: Color(0xff0B22E9),
+                          color: const Color(0xff0B22E9),
                           fontWeight: FontWeight.w900,
                           fontSize: 21,
                         ),
@@ -462,7 +467,7 @@ class _HomePageState extends State<HomePage> {
           decoration: BoxDecoration(
             color: const Color(0xff0B1220),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color(0xff1D4ED8)),
+            border: Border.all(color: Colors.grey.shade800),
           ),
           child: Icon(icon, color: Colors.white, size: 20),
         ),
@@ -517,10 +522,15 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
           color: const Color(0xff08111F),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: const Color(0xff1E3A8A)),
+          border: Border.all(color: Colors.grey.shade800),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xff0B22E9).withValues(alpha: 0.08),
+              color: const Color.fromARGB(
+                255,
+                249,
+                249,
+                250,
+              ).withValues(alpha: 0.08),
               blurRadius: 18,
               offset: const Offset(0, 10),
             ),
@@ -619,7 +629,7 @@ class _HomePageState extends State<HomePage> {
           final double itemWidth =
               (width - ((crossAxisCount - 1) * 18)) / crossAxisCount;
           // Dynamically scales layout height requirements based on mobile vs desktop layouts
-          final double itemHeight = isMobile ? 260.0 : 290.0;
+          final double itemHeight = isMobile ? 280.0 : 290.0;
           final double calculatedRatio = itemWidth / itemHeight;
 
           return GridView.count(
@@ -645,7 +655,7 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
           color: const Color(0xff08111F),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: const Color(0xff1E3A8A)),
+          border: Border.all(color: Colors.grey.shade800),
           boxShadow: [
             BoxShadow(
               color: const Color(0xff0B22E9).withValues(alpha: 0.12),
@@ -768,7 +778,7 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
           color: const Color(0xff08111F),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: const Color(0xff1E3A8A)),
+          border: Border.all(color: Colors.grey.shade800),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -854,7 +864,7 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
           color: const Color(0xff08111F),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: const Color(0xff1E3A8A)),
+          border: Border.all(color: Colors.grey.shade800),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -920,7 +930,7 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
           color: const Color(0xff08111F),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: const Color(0xff1D4ED8)),
+          border: Border.all(color: Colors.grey.shade800),
         ),
         child: Wrap(
           spacing: 14,
@@ -1089,14 +1099,19 @@ class _HomePageState extends State<HomePage> {
       scale: 1.02,
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        hoverColor: const Color(0xff1D4ED8).withValues(alpha: 0.18),
+        hoverColor: const Color.fromARGB(
+          255,
+          9,
+          41,
+          224,
+        ).withValues(alpha: 0.18),
         onTap: onPressed,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 15),
           decoration: BoxDecoration(
             color: const Color(0xff0B1220),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color(0xff1D4ED8)),
+            border: Border.all(color: Colors.grey.withValues(alpha: 0.40)),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
